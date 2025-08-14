@@ -35,3 +35,9 @@ export const registerUser = async (req: Request, res: Response) => {
 
     }
 }
+
+// this controller is used to register a new user
+// it checks if the user already exists, hashes the password, and saves the new user to the database
+// if successful, it returns a success message and the new user object
+// if there is an error, it returns an error message
+// this controller is part of the authentication module of the application

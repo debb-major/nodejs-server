@@ -28,3 +28,10 @@ export const validateRegister = (req: Request, res: Response, next: NextFunction
     next();
 }
 
+// this middleware validates the registration request body
+// it uses Joi to ensure that the first name, last name, email, and password meet specified criteria
+// if validation fails, it returns a 400 status with an error message
+// if validation passes, it calls the next middleware or controller
+// this middleware is part of the authentication module of the application
+// it ensures that user registration requests are properly formatted before processing
+

@@ -18,3 +18,12 @@ app.get('/', (req: Request, res: Response) => {
 app.use("/api/v1/auth", authRoutes);
 
 export default app;
+
+// this is the main application file
+// it sets up the Express server, connects to the database, and defines routes
+// it uses dotenv to load environment variables
+// it includes a basic GET endpoint that returns the server status and current timestamp
+// it imports and uses the authentication routes defined in authRoutes.js
+// this file is the entry point for the application
+// it is responsible for initializing the server and handling incoming requests
+// it is part of the overall application architecture that includes models, controllers, and routes
