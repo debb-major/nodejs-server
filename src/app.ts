@@ -3,6 +3,7 @@ import type { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
+import userRoutes from "./routes/userRoutes.js";
 
 dotenv.config();
 connectDB();
@@ -15,7 +16,9 @@ app.get('/', (req: Request, res: Response) => {
     res.json({ status: "OK", timestamp: new Date().toISOString() });
 });
 
-app.use("/api/v1/auth", authRoutes);
+// Define routes
+app.use("/api/v1/auth", authRoutes); // Authentication routes
+app.use("/api/v1/user", userRoutes); // User routes
 
 export default app;
 
