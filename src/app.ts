@@ -17,6 +17,9 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 // Define routes
+
+// if you notice "api/v1" is common in all the routes, you might want to consider storing the api version as a variable 
+
 app.use("/api/v1/auth", authRoutes); // Authentication routes
 app.use("/api/v1/user", userRoutes); // User routes
 

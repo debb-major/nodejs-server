@@ -1,5 +1,7 @@
 import bcrypt from 'bcrypt';
 
+// you can ust accept saltround here too, but it should also have a default value
+
 export const hashPassword = async (password: string): Promise<string> => {
     const saltRounds = 10; 
     return await bcrypt.hash(password, saltRounds);

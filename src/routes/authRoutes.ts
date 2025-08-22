@@ -24,6 +24,8 @@ router.post('/register', validateRegister, registerUser);
 // it uses the authMiddleware to ensure the user is authenticated
 // if the user is authenticated, it calls the loginUser controller to handle the login logic
 // this route is part of the authentication module of the application
+
+// remove auth middleware, also validate this route...... very. very important
 router.post('/login', authMiddleware, loginUser)
 
 

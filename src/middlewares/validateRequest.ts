@@ -30,8 +30,12 @@ export const validateRegister = (req: Request, res: Response, next: NextFunction
     });
     const { error } = schema.validate(req.body);
     if (error) {
-        const message = error.details && error.details[0] ? error.details[0].message : 'Validation error';
-        return res.status(400).json({ error: message });
+      const message =
+        error.details && error.details[0] ? error.details[0].message : "Validation error";
+
+      // I don't really recommend this, you should have an error handler that handles it and returns just in case we want to do anything prior or log the error somewhere
+      // that means you would also need to add a logger, check our morgan and winston
+      return res.status(400).json({ error: message });
     }
     next();
 }

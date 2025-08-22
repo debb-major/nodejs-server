@@ -1,6 +1,9 @@
 // import { string } from 'joi';
 import mongoose, { Document, Schema } from 'mongoose';
 
+
+// ideally you would also want to have a custom types folder, which will now have the different types files for the different entities in the platform. eg this user type
+
 export interface IUser extends Document{
     firstName: string;
     lastName: string;

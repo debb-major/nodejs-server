@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+// you can manage env and secret vaues with the æconfig" package. it gives you some flexibility on how to store adn retrieve them
+
 const connectDB = async ()=> {
     try{
         await mongoose.connect(process.env.MONGO_URI as string)
