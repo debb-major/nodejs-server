@@ -1,5 +1,4 @@
-import app from './app.js';
-
+import app from '@/app';
 // this is the entry point for the server
 // it imports the Express app from app.js and starts the server on a specified port
 

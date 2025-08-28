@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import User from '../models/User.js';
+import User from '@models/User';
 import type { JwtPayload } from "jsonwebtoken";
 
 interface CustomJwtPayload extends JwtPayload {
@@ -11,13 +11,11 @@ interface AuthRequest extends Request {
     user?: any; // Extend Request to include user property
 }
 
-
-// this middleware checks for a valid JWT token in the request headers (authentication middleware)
-// it extracts the token, verifies it, and attaches the user information to the request object
+// authMiddleware is for protecting routes with JWT
 
 export const authMiddleware = async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
-        const authHeader = req.headers.authorization; // Get the Authorization header
+        const authHeader = req.headers.authorization; // this gets the Authorization header
 
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
             res.status(401).json({ message: 'Unauthorized: No token provided' });
@@ -39,10 +37,7 @@ export const authMiddleware = async (req: AuthRequest, res: Response, next: Next
         if (!user) return res.status(401).json({ message: "Unauthorized: User not found" });
 
         req.user = user;
-        next();
-
-
-                
+        next(); 
     } catch (error) {
         console.error('Auth middleware error:', error);
         res.status(401).json({ message: 'Unauthorized: Invalid token' });

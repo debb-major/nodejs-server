@@ -1,22 +1,38 @@
-// import { string } from 'joi';
 import mongoose, { Document, Schema } from 'mongoose';
-
-
-// ideally you would also want to have a custom types folder, which will now have the different types files for the different entities in the platform. eg this user type
-
-export interface IUser extends Document{
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-}
+import jwt from "jsonwebtoken";
+// import { IUser } from '@types/user';
+import { IUser } from '../types/user';
 
 const userSchema = new Schema<IUser>({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
+    email:     { type: String, required: true, unique: true, lowercase: true }, // lowercase enforced,
     password: { type: String, required: true }
-})
+}, 
+{ 
+    timestamps: true 
+}
+);
+
+// Adding method to the schema
+userSchema.methods.generateAuthToken = function (): string {
+  const token = jwt.sign(
+    { id: this._id, email: this.email },
+    process.env.JWT_SECRET as string,
+    { expiresIn: "1h" }
+  );
+  return token;
+};
+
+// to remove other senstive fields like _v, timestamps, etc, automatically when converting to JSON
+// userSchema.set("toJSON", {
+//   transform: (doc, ret) => {
+//     delete ret.password;
+//     delete ret.__v;
+//     return ret;
+//   },
+// });
+
 
 const User = mongoose.model<IUser>("User", userSchema);
 export default User;
