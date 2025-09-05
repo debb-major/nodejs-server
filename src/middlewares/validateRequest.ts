@@ -72,3 +72,48 @@ export const validateLogin = (req: Request, res: Response, next: NextFunction) =
   next();
 };
 
+// Event creation validation
+export const validateCreateEvent = (req: Request, res: Response, next: NextFunction) => {
+  const schema = Joi.object({
+    title: Joi.string().min(3).max(100).required(),
+    description: Joi.string().min(10).max(1000).required(),
+    date: Joi.date().iso().greater("now").required(), // must be a future date
+    location: Joi.string().min(3).max(200).required(),
+    ticketPrice: Joi.number().min(0).required(),
+    capacity: Joi.number().integer().min(1).required(),
+  });
+
+  const { error, value } = schema.validate(req.body, { abortEarly: false });
+
+  if (error) {
+    const messages = error.details.map((err) => err.message);
+    return res.status(400).json({ errors: messages });
+  }
+
+  req.body = value;
+  next();
+};
+
+// Event update validation (all fields optional, but still validated if present)
+export const validateUpdateEvent = (req: Request, res: Response, next: NextFunction) => {
+  const schema = Joi.object({
+    title: Joi.string().min(3).max(100),
+    description: Joi.string().min(10).max(1000),
+    date: Joi.date().iso().greater("now"),
+    location: Joi.string().min(3).max(200),
+    ticketPrice: Joi.number().min(0),
+    capacity: Joi.number().integer().min(1),
+  });
+
+  const { error, value } = schema.validate(req.body, { abortEarly: false });
+
+  if (error) {
+    const messages = error.details.map((err) => err.message);
+    return res.status(400).json({ errors: messages });
+  }
+
+  req.body = value;
+  next();
+};
+
+

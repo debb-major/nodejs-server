@@ -7,6 +7,7 @@ import userRoutes from '@routes/userRoutes';
 import { errorHandler } from '@middlewares/errorHandler';
 import morgan from "morgan";
 import logger from '@utils/logger';
+import eventRoutes from '@routes/eventRoutes';
 
 
 dotenv.config();
@@ -45,6 +46,7 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use(`${apiVersion}/auth`, authRoutes); // Authentication routes
 app.use(`${apiVersion}/user`, userRoutes); // User routes
+app.use(`${apiVersion}/events`, eventRoutes); // Event routes
 
 // global error handler (must be the last middleware)
 app.use(errorHandler);
